@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "target_country": "India",
+    "service_base": "Faridabad, Haryana",
+    "service_scope": "Pan-India",
+    "cities_targeted": [
+      "Delhi", "Mumbai", "Bangalore", "Chennai", "Hyderabad", 
+      "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Lucknow", 
+      "Chandigarh", "Dehradun", "Gurgaon", "Noida", "Faridabad", 
+      "Ghaziabad", "Bhopal", "Indore", "Nagpur", "Surat"
+    ],
+    "industries_targeted": [
+      "Retail", "E-commerce", "Education", "Healthcare", 
+      "Manufacturing", "Real Estate", "Hospitality", "Travel", 
+      "Finance", "Technology", "Startups", "Services"
+    ]
+  },
+  
+  "primary_keywords": {
+    "national": [
+      "website development India",
+      "web development company India",
+      "website designer India",
+      "professional website development India",
+      "custom website development India",
+      "business website development India",
+      "ecommerce website development India",
+      "web design services India",
+      "website development company",
+      "web agency India"
+    ],
+    "service_specific": [
+      "business website India",
+      "ecommerce website India",
+      "corporate website India",
+      "custom web application India",
+      "website maintenance India",
+      "website redesign India",
+      "responsive website design India",
+      "SEO friendly website India",
+      "mobile website development India",
+      "wordpress website development India"
+    ]
+  },
+  
+  "city_keywords": {
+    "delhi": [
+      "website development Delhi",
+      "web design Delhi NCR",
+      "website company Delhi",
+      "Delhi web development",
+      "website developer Delhi",
+      "web development company Delhi",
+      "Delhi website designer",
+      "ecommerce website Delhi",
+      "business website Delhi",
+      "corporate website Delhi"
+    ],
+    "mumbai": [
+      "website development Mumbai",
+      "Mumbai web design",
+      "web agency Mumbai",
+      "website company Mumbai",
+      "Mumbai website developer",
+      "ecommerce website Mumbai",
+      "business website Mumbai",
+      "web development Mumbai Andheri",
+      "website development Mumbai Powai"
+    ],
+    "bangalore": [
+      "website development Bangalore",
+      "Bangalore web design",
+      "web development company Bangalore",
+      "Bangalore website developer",
+      "tech website Bangalore",
+      "startup website Bangalore",
+      "IT company website Bangalore"
+    ],
+    "chennai": [
+      "website development Chennai",
+      "Chennai web design",
+      "manufacturing website Chennai",
+      "corporate website Chennai",
+      "Chennai website company"
+    ],
+    "hyderabad": [
+      "website development Hyderabad",
+      "Hyderabad web design",
+      "IT website Hyderabad",
+      "pharma website Hyderabad",
+      "Hyderabad web development"
+    ],
+    "kolkata": [
+      "website development Kolkata",
+      "Kolkata web design",
+      "business website Kolkata",
+      "trading website Kolkata",
+      "Kolkata website company"
+    ]
+  },
+  
+  "long_tail_phrases": {
+    "location_based": [
+      "best website development company in {city}",
+      "affordable web design services in {city}",
+      "professional website developer in {city}",
+      "top web agency in {city} India",
+      "website development company near me in {city}",
+      "local website developer in {city}",
+      "{city} web development services",
+      "website company in {city} with India-wide support"
+    ],
+    "service_based": [
+      "ecommerce website development services in {city}",
+      "custom web application development in {city}",
+      "business website packages in {city}",
+      "website maintenance services in {city}",
+      "corporate website design in {city}",
+      "responsive website development in {city}",
+      "SEO friendly website design in {city}"
+    ],
+    "industry_based": [
+      "{industry} website development in {city}",
+      "website for {industry} business in India",
+      "{industry} specific website solutions India",
+      "custom website for {industry} sector India"
+    ]
+  },
+  
+  "intent_keywords": {
+    "commercial": [
+      "hire website developer India",
+      "website development quotes India",
+      "web design prices India",
+      "best web developers India",
+      "website development cost India",
+      "web development packages India",
+      "compare website developers India",
+      "website development proposals India"
+    ],
+    "informational": [
+      "how to create website in India",
+      "website requirements for Indian business",
+      "benefits of website for Indian companies",
+      "website development process India",
+      "types of websites for business India",
+      "website maintenance tips India",
+      "SEO for websites in India",
+      "responsive design importance India"
+    ],
+    "transactional": [
+      "contact website developer",
+      "get website quote",
+      "book free consultation",
+      "start website project",
+      "website development inquiry",
+      "request proposal website",
+      "schedule demo website"
+    ]
+  },
+  
+  "technology_keywords": {
+    "frontend": [
+      "HTML5 website development",
+      "CSS3 responsive design",
+      "JavaScript website India",
+      "React.js development India",
+      "Vue.js website India",
+      "responsive web design India",
+      "mobile first design India",
+      "progressive web apps India"
+    ],
+    "backend": [
+      "Python Flask development India",
+      "Django website India",
+      "Node.js development India",
+      "PHP website development India",
+      "Java web applications India",
+      "REST API development India",
+      "database integration India",
+      "server side development India"
+    ],
+    "cms": [
+      "WordPress development India",
+      "custom WordPress themes India",
+      "WordPress plugins development",
+      "Joomla website India",
+      "Drupal development India",
+      "custom CMS development India"
+    ]
+  },
+  
+  "competitor_keywords": {
+    "direct_competitors": [
+      "website development companies India",
+      "top web agencies India",
+      "best website developers in India",
+      "professional web design companies India",
+      "custom website development firms India"
+    ],
+    "indirect_competitors": [
+      "digital marketing agencies India",
+      "SEO companies India",
+      "graphic design companies India",
+      "software development companies India",
+      "IT services companies India"
+    ]
+  },
+  
+  "monthly_search_estimates": {
+    "national": [
+      { "keyword": "website development India", "volume": 12100, "difficulty": "High" },
+      { "keyword": "web development company", "volume": 9900, "difficulty": "High" },
+      { "keyword": "website designer India", "volume": 8100, "difficulty": "Medium" },
+      { "keyword": "ecommerce website India", "volume": 4400, "difficulty": "Medium" }
+    ],
+    "local": [
+      { "keyword": "website development Delhi", "volume": 1900, "difficulty": "Medium" },
+      { "keyword": "web development Mumbai", "volume": 1600, "difficulty": "Medium" },
+      { "keyword": "website development Bangalore", "volume": 1400, "difficulty": "Medium" },
+      { "keyword": "web design Chennai", "volume": 900, "difficulty": "Low" }
+    ]
+  },
+  
+  "content_strategy": {
+    "primary_focus": "70% Pan-India, 30% Local Reference",
+    "content_types": [
+      "City-specific landing pages",
+      "Industry-specific solutions",
+      "Service detail pages",
+      "Case studies and portfolios",
+      "Educational blog content",
+      "Comparison guides",
+      "How-to tutorials",
+      "Industry trend analysis"
+    ],
+    "seo_elements": [
+      "Location-specific meta tags",
+      "Local business schema",
+      "City-specific content",
+      "Local testimonials",
+      "Area-specific case studies",
+      "Regional business insights",
+      "Local service differentiators"
+    ]
+  }
+}

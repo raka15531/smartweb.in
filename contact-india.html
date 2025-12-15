@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Website Development Quote | NextGen Web Solutions</title>
+    <meta name="description" content="Get a free quote for your website development project. Professional websites starting at ₹4,999. Serving all India.">
+    
+    <!-- All CSS and JS includes same as other pages -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-btn" id="themeToggle">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919599372553" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-text">Chat Now</span>
+    </a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="/">
+                        <h1>NextGen Web Solutions</h1>
+                        <span class="logo-subtitle">Get Free Quote</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="services-india.html">Services</a>
+                    <a href="portfolio-india.html">Portfolio</a>
+                    <a href="blog-india.html">Blog</a>
+                    <a href="about-india.html">About</a>
+                    <a href="contact-india.html" class="nav-cta active">Get Quote</a>
+                </div>
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Get Your Free Website Quote</h1>
+            <p>Fill the form below and get a detailed proposal within 24 hours</p>
+            <div class="hero-badge">
+                <span><i class="fas fa-rupee-sign"></i> Transparent Pricing | <i class="fas fa-clock"></i> 24/7 Support</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="section-title">Tell Us About Your Project</h2>
+                <p class="section-subtitle">The more details you provide, the more accurate our quote will be</p>
+
+                <form id="contactForm" action="https://formspree.io/f/xnneypje" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company" placeholder="Your company/business name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="you@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City in India *</label>
+                            <input type="text" id="city" name="city" required placeholder="e.g., Delhi, Mumbai, Bangalore">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Needed *</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="business-website">Business Website (₹4,999+)</option>
+                                <option value="ecommerce">E-commerce Store (₹19,999+)</option>
+                                <option value="custom-app">Custom Web Application (₹45,000+)</option>
+                                <option value="website-redesign">Website Redesign</option>
+                                <option value="maintenance">Website Maintenance</option>
+                                <option value="not-sure">Not Sure - Need Consultation</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="budget">Estimated Budget *</label>
+                            <select id="budget" name="budget" required>
+                                <option value="" disabled selected>Select budget range</option>
+                                <option value="5k-10k">₹5,000 - ₹10,000</option>
+                                <option value="10k-25k">₹10,000 - ₹25,000</option>
+                                <option value="25k-50k">₹25,000 - ₹50,000</option>
+                                <option value="50k-plus">₹50,000+</option>
+                                <option value="not-sure">Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeline">Project Timeline *</label>
+                            <select id="timeline" name="timeline" required>
+                                <option value="" disabled selected>When do you need it?</option>
+                                <option value="asap">ASAP (Within 1 week)</option>
+                                <option value="2-weeks">Within 2 weeks</option>
+                                <option value="1-month">Within 1 month</option>
+                                <option value="flexible">Flexible / Planning Phase</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="projectDetails">Project Details *</label>
+                        <textarea id="projectDetails" name="projectDetails" rows="8" required 
+                            placeholder="Please describe your project in detail. Include:
+• Type of business
+• Target audience
+• Specific features needed
+• Any reference websites you like
+• Other requirements"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="howFound">How did you find us?</label>
+                        <select id="howFound" name="howFound">
+                            <option value="" selected>Select option</option>
+                            <option value="google">Google Search</option>
+                            <option value="referral">Referral</option>
+                            <option value="social-media">Social Media</option>
+                            <option value="previous-client">Previous Client</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Formspree Hidden Fields -->
+                    <input type="hidden" name="_subject" value="New Quote Request - NextGen Web Solutions">
+                    <input type="hidden" name="_replyto" value="akashsing1553@gmail.com">
+                    <input type="hidden" name="_cc" value="akashsing1553@gmail.com">
+                    <input type="hidden" name="_next" value="https://yourwebsite.vercel.app/thank-you.html">
+                    <input type="text" name="_gotcha" style="display:none">
+
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane"></i> Submit Quote Request
+                        </button>
+                        <p class="form-note">
+                            <i class="fas fa-shield-alt"></i> Your information is secure. We'll contact you within 24 hours.
+                        </p>
+                    </div>
+                </form>
+
+                <div class="contact-alternatives">
+                    <h3>Prefer Other Ways to Connect?</h3>
+                    <div class="alternative-options">
+                        <a href="https://wa.me/919599372553" class="alternative-option whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp Chat</h4>
+                                <p>Quick response within minutes</p>
+                            </div>
+                        </a>
+                        <a href="tel:+919599372553" class="alternative-option phone">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Call Now</h4>
+                                <p>+91 95993 72553</p>
+                            </div>
+                        </a>
+                        <a href="mailto:akashsing1553@gmail.com" class="alternative-option email">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p>akashsing1553@gmail.com</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How long does it take to get a quote?</h3>
+                    <p>We respond to all quote requests within 24 hours. For urgent projects, use WhatsApp for instant response.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What information do you need for a quote?</h3>
+                    <p>We need details about your project scope, features, timeline, and budget to provide an accurate quote.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is the quote free?</h3>
+                    <p>Yes, all quotes and consultations are completely free with no obligation.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I get a quote for multiple services?</h3>
+                    <p>Yes, mention all requirements in the project details section, and we'll provide a comprehensive quote.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>NextGen Web Solutions</h3>
+                    <p class="profession">Get Your Website Quote Today</p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> <a href="tel:+919599372553">+91 95993 72553</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:akashsing1553@gmail.com">akashsing1553@gmail.com</a></p>
+                        <p><i class="fas fa-map-marker-alt"></i> Based in Faridabad, Serving All India</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="/">Home</a>
+                    <a href="services-india.html">Services</a>
+                    <a href="portfolio-india.html">Portfolio</a>
+                    <a href="about-india.html">About</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Get In Touch</h4>
+                    <div class="social-links">
+                        <a href="https://wa.me/919599372553" class="social-link whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Quote
+                        </a>
+                        <a href="tel:+919599372553" class="social-link phone">
+                            <i class="fas fa-phone"></i> Call for Quote
+                        </a>
+                        <a href="mailto:akashsing1553@gmail.com" class="social-link email">
+                            <i class="fas fa-envelope"></i> Email Quote
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> NextGen Web Solutions. Get your website quote today.</p>
+                <p>WhatsApp: +91 95993 72553 | Email: akashsing1553@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Form submission handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    // Basic validation
+                    const requiredFields = contactForm.querySelectorAll('[required]');
+                    let valid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            valid = false;
+                            field.style.borderColor = 'var(--danger-color)';
+                        } else {
+                            field.style.borderColor = '';
+                        }
+                    });
+                    
+                    if (!valid) {
+                        e.preventDefault();
+                        alert('Please fill all required fields marked with *');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+                    
+                    // Reset after 3 seconds if form doesn't submit
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                });
+            }
+            
+            // Update current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
