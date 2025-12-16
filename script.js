@@ -1069,7 +1069,108 @@ document.addEventListener('DOMContentLoaded', function() {
  * PERFORMANCE OPTIMIZATION
  * ============================================
  */
+// MOBILE SCROLL FIXES - Add this function
+function initMobileScrollFixes() {
+    // Prevent double tap zoom on mobile
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
 
+    // Fix for iOS 100vh issue
+    function fixViewportHeight() {
+        // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+        let vh = window.innerHeight * 0.01;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    // Set the viewport height initially
+    fixViewportHeight();
+
+    // Update on resize and orientation change
+    window.addEventListener('resize', fixViewportHeight);
+    window.addEventListener('orientationchange', fixViewportHeight);
+
+    // Fix for mobile scroll blocking
+    document.body.style.overflowX = 'hidden';
+    document.documentElement.style.overflowX = 'hidden';
+
+    // Prevent iOS bounce
+    document.body.addEventListener('touchmove', function(e) {
+        if (e.target.classList.contains('scrollable')) {
+            return;
+        }
+        e.preventDefault();
+    }, { passive: false });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Mobile-specific offset
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const extraOffset = window.innerWidth <= 768 ? 20 : 0;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraOffset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                const navLinks = document.querySelector('.nav-links');
+                const menuToggle = document.querySelector('.menu-toggle');
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    });
+
+    // Fix for mobile keyboard not pushing content
+    if ('visualViewport' in window) {
+        const visualViewport = window.visualViewport;
+        
+        visualViewport.addEventListener('resize', function() {
+            // Adjust fixed elements when keyboard appears
+            const fixedElements = document.querySelectorAll('.header, .whatsapp-float, .chatbot-toggle');
+            fixedElements.forEach(el => {
+                el.style.transform = `translateY(${visualViewport.offsetTop}px)`;
+            });
+        });
+        
+        visualViewport.addEventListener('scroll', function() {
+            // Adjust fixed elements when scrolling with keyboard
+            const fixedElements = document.querySelectorAll('.header, .whatsapp-float, .chatbot-toggle');
+            fixedElements.forEach(el => {
+                el.style.transform = `translateY(${visualViewport.offsetTop}px)`;
+            });
+        });
+    }
+
+    // Enable smooth scrolling on iOS
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+        document.documentElement.style.scrollBehavior = 'smooth';
+    }
+}
+
+// Add this to your existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    initMobileScrollFixes(); // Add this line
+    // ... rest of your existing initialization code ...
+});
 // Optimize images on load
 function optimizeImages() {
     const images = document.querySelectorAll('img[data-src]');
