@@ -1,12 +1,15 @@
 /**
  * NextGen Web Solutions - Main JavaScript File
- * Complete functionality for all pages
- * @version 2.0.0
+ * Complete functionality with mobile scrolling fixes
+ * @version 2.1.0
  */
 
 // DOM Ready Function
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 NextGen Web Solutions Initialized');
+    
+    // Initialize mobile fixes first
+    initMobileFixes();
     
     // Initialize all components
     initThreeJS();
@@ -25,6 +28,81 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize SEO tracking
     initSEOTracking();
 });
+
+/**
+ * ============================================
+ * MOBILE SCROLLING FIXES - ADDED FIRST
+ * ============================================
+ */
+function initMobileFixes() {
+    console.log('📱 Initializing mobile fixes...');
+    
+    // Fix for iOS 100vh issue
+    function fixViewportHeight() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        console.log('📏 Viewport height fixed:', vh);
+    }
+    
+    // Set initial viewport height
+    fixViewportHeight();
+    
+    // Update on resize and orientation change
+    window.addEventListener('resize', fixViewportHeight);
+    window.addEventListener('orientationchange', function() {
+        setTimeout(fixViewportHeight, 100);
+    });
+    
+    // Prevent iOS bounce/overscroll
+    document.body.addEventListener('touchmove', function(e) {
+        // Allow scrolling in scrollable elements
+        if (e.target.classList.contains('scrollable') || 
+            e.target.closest('.scrollable')) {
+            return;
+        }
+        
+        // Prevent bounce on body
+        if (document.body.scrollTop === 0) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Fix for iOS safari 100vh issue with address bar
+    window.addEventListener('load', fixViewportHeight);
+    
+    // Fix for mobile keyboard pushing content
+    if ('visualViewport' in window) {
+        const visualViewport = window.visualViewport;
+        
+        visualViewport.addEventListener('resize', function() {
+            // Adjust fixed elements when keyboard appears
+            const fixedElements = document.querySelectorAll('.header, .whatsapp-float, .chatbot-toggle, .theme-switcher');
+            fixedElements.forEach(el => {
+                el.style.transform = `translateY(${visualViewport.offsetTop}px)`;
+            });
+        });
+    }
+    
+    // Enable smooth scrolling on iOS
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+        document.documentElement.style.scrollBehavior = 'smooth';
+    }
+    
+    // Prevent zoom on double tap (only for non-input elements)
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            // Don't prevent zoom on inputs
+            if (!event.target.matches('input, textarea, select, [contenteditable="true"]')) {
+                event.preventDefault();
+            }
+        }
+        lastTouchEnd = now;
+    }, false);
+    
+    console.log('✅ Mobile fixes initialized');
+}
 
 /**
  * ============================================
@@ -209,22 +287,33 @@ function initThemeSwitcher() {
 
 /**
  * ============================================
- * MOBILE MENU
+ * MOBILE MENU - UPDATED FOR SCROLLING
  * ============================================
  */
 function initMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
     
     if (!menuToggle || !navLinks) return;
 
     try {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            navLinks.classList.toggle('active');
-            menuToggle.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            
+            if (navLinks.classList.contains('active')) {
+                // Close menu
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                body.style.overflow = 'auto'; // Re-enable scrolling
+                menuToggle.setAttribute('aria-expanded', 'false');
+            } else {
+                // Open menu
+                navLinks.classList.add('active');
+                menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                body.style.overflow = 'hidden'; // Prevent body scrolling
+                menuToggle.setAttribute('aria-expanded', 'true');
+            }
             
             // Track menu toggle
             trackEvent('menu_toggle', navLinks.classList.contains('active') ? 'open' : 'close');
@@ -235,6 +324,8 @@ function initMobileMenu() {
             if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                body.style.overflow = 'auto';
+                menuToggle.setAttribute('aria-expanded', 'false');
             }
         });
         
@@ -243,6 +334,8 @@ function initMobileMenu() {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                body.style.overflow = 'auto';
+                menuToggle.setAttribute('aria-expanded', 'false');
                 trackEvent('nav_click', link.textContent.trim());
             });
         });
@@ -252,6 +345,8 @@ function initMobileMenu() {
             if (e.key === 'Escape' && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                body.style.overflow = 'auto';
+                menuToggle.setAttribute('aria-expanded', 'false');
             }
         });
         
@@ -419,7 +514,7 @@ function initChatbot() {
 
 /**
  * ============================================
- * SMOOTH SCROLL
+ * SMOOTH SCROLL - MOBILE FIXED
  * ============================================
  */
 function initSmoothScroll() {
@@ -434,12 +529,22 @@ function initSmoothScroll() {
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     const headerHeight = document.querySelector('.header').offsetHeight;
-                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    const extraOffset = window.innerWidth <= 768 ? 20 : 0;
+                    const targetPosition = targetElement.offsetTop - headerHeight - extraOffset;
                     
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+                    
+                    // Close mobile menu if open
+                    const navLinks = document.querySelector('.nav-links');
+                    const menuToggle = document.querySelector('.menu-toggle');
+                    if (navLinks && navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        document.body.style.overflow = 'auto';
+                    }
                     
                     // Track internal link clicks
                     trackEvent('smooth_scroll', targetId);
@@ -862,32 +967,6 @@ function initSEOTracking() {
                     'value': loadTime
                 });
             }
-            
-            // Check Core Web Vitals
-            if ('PerformanceObserver' in window) {
-                try {
-                    // Largest Contentful Paint
-                    const lcpObserver = new PerformanceObserver((entryList) => {
-                        const entries = entryList.getEntries();
-                        const lastEntry = entries[entries.length - 1];
-                        console.log(`📊 LCP: ${lastEntry.startTime}ms`);
-                    });
-                    
-                    lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
-                    
-                    // First Input Delay
-                    const fidObserver = new PerformanceObserver((entryList) => {
-                        const entries = entryList.getEntries();
-                        entries.forEach(entry => {
-                            console.log(`📊 FID: ${entry.processingStart - entry.startTime}ms`);
-                        });
-                    });
-                    
-                    fidObserver.observe({ type: 'first-input', buffered: true });
-                } catch (error) {
-                    console.log('⚠️ Core Web Vitals tracking failed:', error);
-                }
-            }
         }
     });
     
@@ -1036,141 +1115,12 @@ window.addEventListener('error', function(event) {
 window.addEventListener('unhandledrejection', function(event) {
     console.error('Unhandled Promise Rejection:', event.reason);
 });
-// Add this function to fix mobile scrolling
-function initMobileFixes() {
-    // Prevent zoom on double tap
-    document.addEventListener('touchstart', function(event) {
-        if (event.touches.length > 1) {
-            event.preventDefault();
-        }
-    }, { passive: false });
-    
-    // Fix for iOS 100vh issue
-    function fixVH() {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-    
-    fixVH();
-    window.addEventListener('resize', fixVH);
-    window.addEventListener('orientationchange', fixVH);
-    
-    // Fix scrolling on mobile
-    document.body.style.overflowX = 'hidden';
-}
 
-// Call it in your DOMContentLoaded:
-document.addEventListener('DOMContentLoaded', function() {
-    initMobileFixes();
-    // ... rest of your existing code
-});
 /**
  * ============================================
  * PERFORMANCE OPTIMIZATION
  * ============================================
  */
-// MOBILE SCROLL FIXES - Add this function
-function initMobileScrollFixes() {
-    // Prevent double tap zoom on mobile
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-        const now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
-        }
-        lastTouchEnd = now;
-    }, false);
-
-    // Fix for iOS 100vh issue
-    function fixViewportHeight() {
-        // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-        let vh = window.innerHeight * 0.01;
-        // Then we set the value in the --vh custom property to the root of the document
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-
-    // Set the viewport height initially
-    fixViewportHeight();
-
-    // Update on resize and orientation change
-    window.addEventListener('resize', fixViewportHeight);
-    window.addEventListener('orientationchange', fixViewportHeight);
-
-    // Fix for mobile scroll blocking
-    document.body.style.overflowX = 'hidden';
-    document.documentElement.style.overflowX = 'hidden';
-
-    // Prevent iOS bounce
-    document.body.addEventListener('touchmove', function(e) {
-        if (e.target.classList.contains('scrollable')) {
-            return;
-        }
-        e.preventDefault();
-    }, { passive: false });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Mobile-specific offset
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const extraOffset = window.innerWidth <= 768 ? 20 : 0;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraOffset;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                const navLinks = document.querySelector('.nav-links');
-                const menuToggle = document.querySelector('.menu-toggle');
-                if (navLinks && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            }
-        });
-    });
-
-    // Fix for mobile keyboard not pushing content
-    if ('visualViewport' in window) {
-        const visualViewport = window.visualViewport;
-        
-        visualViewport.addEventListener('resize', function() {
-            // Adjust fixed elements when keyboard appears
-            const fixedElements = document.querySelectorAll('.header, .whatsapp-float, .chatbot-toggle');
-            fixedElements.forEach(el => {
-                el.style.transform = `translateY(${visualViewport.offsetTop}px)`;
-            });
-        });
-        
-        visualViewport.addEventListener('scroll', function() {
-            // Adjust fixed elements when scrolling with keyboard
-            const fixedElements = document.querySelectorAll('.header, .whatsapp-float, .chatbot-toggle');
-            fixedElements.forEach(el => {
-                el.style.transform = `translateY(${visualViewport.offsetTop}px)`;
-            });
-        });
-    }
-
-    // Enable smooth scrolling on iOS
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-        document.documentElement.style.scrollBehavior = 'smooth';
-    }
-}
-
-// Add this to your existing DOMContentLoaded event listener
-document.addEventListener('DOMContentLoaded', function() {
-    initMobileScrollFixes(); // Add this line
-    // ... rest of your existing initialization code ...
-});
 // Optimize images on load
 function optimizeImages() {
     const images = document.querySelectorAll('img[data-src]');
