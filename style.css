@@ -7,6 +7,27 @@
     box-sizing: border-box;
 }
 
+/* CRITICAL MOBILE FIX: Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    position: relative;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    touch-action: pan-y;
+}
+
+/* MOBILE FIX: Enable smooth scrolling on iOS */
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* MOBILE FIX: Ensure everything stays within viewport */
+* {
+    max-width: 100%;
+}
+
 :root {
     /* ========== LIGHT THEME (Default) ========== */
     --primary-color: #ffffff;
@@ -138,8 +159,29 @@ a:hover {
     padding: 0 var(--space-lg);
 }
 
+/* MOBILE FIX: Better container for small screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+}
+
 .section {
     padding: var(--space-xxl) 0;
+}
+
+/* MOBILE FIX: Reduce section padding */
+@media (max-width: 768px) {
+    .section {
+        padding: 40px 0 !important;
+        overflow: hidden !important;
+    }
 }
 
 .section-title {
@@ -264,8 +306,21 @@ a:hover {
     transition: all var(--transition-normal);
 }
 
+/* MOBILE FIX: Ensure header is properly visible on mobile */
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
 [data-theme="dark"] .header {
     background: rgba(26, 26, 26, 0.95);
+}
+
+[data-theme="dark"] .header {
+    background: rgba(26, 26, 46, 0.95) !important;
 }
 
 .navbar {
@@ -356,6 +411,20 @@ a:hover {
     padding-top: 80px;
     position: relative;
     overflow: hidden;
+}
+
+/* MOBILE FIX: Fix hero section spacing for mobile */
+.hero {
+    padding-top: 80px !important;
+    min-height: calc(100vh - 60px) !important;
+    overflow: hidden;
+}
+
+/* iOS Safari specific fix */
+@supports (-webkit-touch-callout: none) {
+    .hero {
+        min-height: -webkit-fill-available !important;
+    }
 }
 
 .hero::before {
@@ -1567,6 +1636,14 @@ a:hover {
     overflow: hidden;
 }
 
+/* MOBILE FIX: Better positioning for mobile */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+}
+
 .whatsapp-float:hover {
     width: 160px;
     border-radius: 50px;
@@ -1811,6 +1888,14 @@ a:hover {
     transition: all var(--transition-normal);
 }
 
+/* MOBILE FIX: Better positioning for chatbot */
+.chatbot-toggle {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 9999;
+}
+
 .chatbot-toggle:hover {
     transform: scale(1.1);
 }
@@ -1826,6 +1911,16 @@ a:hover {
     height: 100%;
     z-index: -1;
     pointer-events: none;
+}
+
+/* MOBILE FIX: Ensure canvas covers entire screen */
+#particles-canvas {
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: -1 !important;
 }
 
 /* ============================================
@@ -2725,7 +2820,7 @@ a:hover {
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN - UPDATED WITH MOBILE FIXES
    ============================================ */
 @media (max-width: 1200px) {
     .container {
@@ -2764,6 +2859,12 @@ a:hover {
         padding: 0 var(--space-md);
     }
     
+    /* MOBILE FIX: Ensure body scrolls properly */
+    body {
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+    
     /* Navigation */
     .nav-links {
         position: fixed;
@@ -2791,25 +2892,30 @@ a:hover {
         display: block;
     }
     
-    /* Hero Section */
+    /* Hero Section - MOBILE FIXES */
     .hero {
-        padding-top: 100px;
+        padding-top: 100px !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding-bottom: 40px;
     }
     
     .hero-title {
-        font-size: 2.2rem;
+        font-size: 2.2rem !important;
+        line-height: 1.3 !important;
     }
     
     .hero-title .hindi {
-        font-size: 1.8rem;
+        font-size: 1.8rem !important;
     }
     
     .hero-title .english {
-        font-size: 1.6rem;
+        font-size: 1.6rem !important;
     }
     
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 1rem !important;
+        margin-bottom: 20px !important;
     }
     
     .hero-stats {
@@ -2817,14 +2923,27 @@ a:hover {
         gap: var(--space-lg);
     }
     
+    /* MOBILE FIX: Stack buttons vertically */
     .hero-cta {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    
+    .hero-cta .btn {
+        width: 100% !important;
+        max-width: 280px !important;
+        margin: 0 auto !important;
     }
     
     .btn {
         width: 100%;
         max-width: 300px;
+    }
+    
+    /* Section Titles - MOBILE FIX */
+    .section-title {
+        font-size: 1.8rem !important;
+        margin-bottom: 30px !important;
     }
     
     /* Process Timeline */
@@ -2843,6 +2962,30 @@ a:hover {
         gap: 0;
     }
     
+    /* Grid Layouts - MOBILE FIX */
+    .services-grid,
+    .pricing-grid,
+    .why-grid,
+    .cities-grid,
+    .industries-grid,
+    .testimonials-grid,
+    .features-grid,
+    .faq-grid,
+    .values-grid,
+    .team-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    /* MOBILE FIX: Remove transform effects on mobile */
+    .service-card:hover,
+    .price-card:hover,
+    .why-card:hover,
+    .city-card:hover,
+    .industry-card:hover {
+        transform: none !important;
+    }
+    
     /* City Pages */
     .delhi-areas {
         flex-direction: column;
@@ -2854,34 +2997,35 @@ a:hover {
         justify-content: center;
     }
     
-    /* Theme Switcher */
+    /* Theme Switcher - MOBILE FIX */
     .theme-switcher {
         right: 70px;
         top: 15px;
     }
     
     .theme-btn {
-        width: 45px;
-        height: 45px;
+        width: 45px !important;
+        height: 45px !important;
         font-size: 1rem;
     }
     
-    /* Chatbot */
+    /* Chatbot - MOBILE FIX */
     .chatbot-container {
-        width: calc(100vw - 40px);
-        right: 20px;
-        left: 20px;
-        bottom: 90px;
+        width: calc(100vw - 40px) !important;
+        max-width: none !important;
+        right: 20px !important;
+        left: 20px !important;
+        bottom: 80px !important;
     }
     
     .chatbot-toggle {
-        bottom: 90px;
-        right: 20px;
+        bottom: 90px !important;
+        right: 20px !important;
     }
     
     .whatsapp-float {
-        bottom: 20px;
-        right: 20px;
+        bottom: 20px !important;
+        right: 20px !important;
     }
     
     /* Blog */
@@ -2901,6 +3045,15 @@ a:hover {
     /* About */
     .milestones-timeline {
         padding-left: var(--space-lg);
+    }
+    
+    /* MOBILE FIX: Fix popular card scaling */
+    .price-card.popular {
+        transform: none !important;
+    }
+    
+    .price-card.popular:hover {
+        transform: translateY(-10px) !important;
     }
 }
 
@@ -2949,6 +3102,24 @@ a:hover {
         padding: var(--space-lg);
     }
     
+    /* MOBILE FIX: Button text adjustments */
+    .btn {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+    }
+    
+    /* MOBILE FIX: WhatsApp float sizing */
+    .whatsapp-float {
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 15px !important;
+        right: 15px !important;
+    }
+    
+    .whatsapp-float .fa-whatsapp {
+        font-size: 24px !important;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
     }
@@ -2960,6 +3131,41 @@ a:hover {
     .filters-container {
         flex-direction: column;
         align-items: center;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px !important;
+    }
+    
+    .hero-title {
+        font-size: 1.6rem !important;
+    }
+    
+    .hero-title .hindi {
+        font-size: 1.3rem !important;
+    }
+    
+    .hero-title .english {
+        font-size: 1.2rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.6rem !important;
+    }
+    
+    /* MOBILE FIX: Chatbot full width */
+    .chatbot-container {
+        width: calc(100vw - 40px);
+        right: 20px;
+        left: 20px;
+        bottom: 90px;
+    }
+    
+    .chatbot-toggle {
+        bottom: 90px;
     }
 }
 
@@ -3107,4 +3313,61 @@ a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-hover);
+}
+
+/* ============================================
+   MOBILE SPECIFIC FIXES
+   ============================================ */
+/* Fix for iOS Safari viewport height */
+@supports (-webkit-touch-callout: none) {
+    body {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Fix for tap highlight color on mobile */
+a, button, input, textarea, select {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Ensure all interactive elements have minimum touch target size */
+.btn, .nav-links a, .filter-btn, .page-link {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Fix for font rendering on mobile */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent pull-to-refresh on mobile */
+body {
+    overscroll-behavior-y: contain;
+}
+
+/* Fix for sticky hover on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .service-card:hover,
+    .price-card:hover,
+    .why-card:hover,
+    .city-card:hover,
+    .industry-card:hover,
+    .portfolio-item:hover,
+    .team-member:hover,
+    .value-card:hover {
+        transform: none !important;
+    }
+    
+    .btn:hover {
+        transform: none !important;
+    }
 }
