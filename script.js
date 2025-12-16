@@ -1036,7 +1036,34 @@ window.addEventListener('error', function(event) {
 window.addEventListener('unhandledrejection', function(event) {
     console.error('Unhandled Promise Rejection:', event.reason);
 });
+// Add this function to fix mobile scrolling
+function initMobileFixes() {
+    // Prevent zoom on double tap
+    document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Fix for iOS 100vh issue
+    function fixVH() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    fixVH();
+    window.addEventListener('resize', fixVH);
+    window.addEventListener('orientationchange', fixVH);
+    
+    // Fix scrolling on mobile
+    document.body.style.overflowX = 'hidden';
+}
 
+// Call it in your DOMContentLoaded:
+document.addEventListener('DOMContentLoaded', function() {
+    initMobileFixes();
+    // ... rest of your existing code
+});
 /**
  * ============================================
  * PERFORMANCE OPTIMIZATION
