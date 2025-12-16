@@ -3230,6 +3230,182 @@ a:hover {
 .shadow { box-shadow: var(--shadow-md) !important; }
 .shadow-lg { box-shadow: var(--shadow-lg) !important; }
 
+
+
+/* ============================================
+   MOBILE SCROLL FIXES
+   ============================================ */
+
+/* Fix for mobile scrolling issues */
+@media (max-width: 768px) {
+    /* Ensure proper scrolling on mobile */
+    html, body {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Fix for fixed elements blocking scroll */
+    .header {
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
+    
+    /* Ensure content starts below header */
+    .hero {
+        padding-top: 100px !important;
+    }
+    
+    /* Fix for iOS Safari bounce effect */
+    body {
+        position: relative;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Remove fixed height constraints on mobile */
+    .hero {
+        min-height: auto !important;
+        height: auto !important;
+    }
+    
+    /* Fix for iOS 100vh issue */
+    .hero {
+        min-height: calc(var(--vh, 1vh) * 100 - 100px) !important;
+    }
+}
+
+/* Fix for sticky hover states on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    a, button, input, textarea {
+        cursor: pointer;
+    }
+    
+    .btn:hover, 
+    .service-card:hover,
+    .city-card:hover,
+    .industry-card:hover,
+    .testimonial-card:hover {
+        transform: none !important;
+    }
+}
+
+/* Prevent pull-to-refresh on mobile */
+@media (max-width: 768px) {
+    body {
+        overscroll-behavior-y: contain;
+    }
+}
+
+/* Fix for iOS Safari input zoom */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Ensure tap targets are large enough */
+@media (max-width: 768px) {
+    .btn, 
+    .nav-links a, 
+    .quick-question,
+    .filter-btn,
+    .page-link,
+    .social-link,
+    .city-link,
+    .service-link,
+    .industry-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Fix for scrolling inside modals/fixed elements */
+.chatbot-body {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+
+/* ============================================
+   ADDITIONAL MOBILE SCROLL ENHANCEMENTS
+   ============================================ */
+
+/* Fix for momentum scrolling on iOS */
+.scrollable {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+/* Fix for fixed elements on iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    .header,
+    .whatsapp-float,
+    .chatbot-toggle,
+    .theme-switcher {
+        position: -webkit-sticky;
+    }
+}
+
+/* Fix for content shifting on mobile */
+@media (max-width: 768px) {
+    /* Remove transform effects that might interfere with scrolling */
+    * {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    
+    /* Ensure sections don't have fixed heights */
+    section {
+        min-height: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    
+    /* Fix for hero section scroll */
+    .hero {
+        position: relative;
+        overflow: visible;
+    }
+}
+
+/* Fix for Chrome on Android pull-to-refresh */
+@media (max-width: 768px) {
+    body {
+        overscroll-behavior-y: none;
+    }
+}
+
+/* Ensure proper touch scrolling */
+html {
+    touch-action: manipulation;
+}
+
+/* Fix for fast click on mobile */
+a, button, input[type="button"], input[type="submit"] {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection on mobile */
+@media (max-width: 768px) {
+    * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    input, textarea {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
+}
 /* ============================================
    PRINT STYLES
    ============================================ */
